@@ -1,21 +1,20 @@
-# Generated for Konflux Application openshift-pipelines-core-main by openshift-pipelines/hack. DO NOT EDIT
+# Generated for Konflux Application openshift-pipelines-core by openshift-pipelines/hack. DO NOT EDIT
 apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
   annotations:
-    #pipelinesascode.tekton.dev/cancel-in-progress: "true" # Cancel in-progress pipelines
-    pipelinesascode.tekton.dev/pipeline: "https://raw.githubusercontent.com/openshift-pipelines/operator/refs/heads/main/.tekton/docker-build-ta.yaml"
-    build.appstudio.openshift.io/repo: https://github.com/openshift-pipelines/console-plugin.git?rev={{revision}}
+    pipelinesascode.tekton.dev/cancel-in-progress: "true" # Cancel in-progress pipelines
+    pipelinesascode.tekton.dev/pipeline: "https://raw.githubusercontent.com/openshift-pipelines-konflux/tektoncd-operator/refs/heads/main/.tekton/docker-build-ta.yaml"
+    build.appstudio.openshift.io/repo: https://github.com/openshift-pipelines-konflux/console-plugin.git?rev={{revision}}
     build.appstudio.redhat.com/commit_sha: '{{revision}}'
     build.appstudio.redhat.com/pull_request_number: '{{pull_request_number}}'
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch
       == "main" &&
-      ("***".pathChanged() ||
+      ("upstream/***".pathChanged() || ".konflux/patches/***".pathChanged() || ".konflux/rpms/***".pathChanged() ||
       ".konflux/dockerfiles/console-plugin.Dockerfile".pathChanged() ||
       ".tekton/console-plugin-main-console-plugin-pull-request.yaml".pathChanged())
-  creationTimestamp: null
   labels:
     appstudio.openshift.io/application: openshift-pipelines-core-main
     appstudio.openshift.io/component: console-plugin-main-console-plugin
@@ -29,7 +28,7 @@ spec:
   - name: revision
     value: '{{revision}}'
   - name: output-image
-    value: quay.io/redhat-user-workloads/tekton-ecosystem-tenant/main/console-plugin-rhel9:on-pr-{{revision}}
+    value: quay.io/redhat-user-workloads/tekton-ecosystem-tenant/console-plugin-console-plugin-rhel9:on-pr-{{revision}}
   - name: image-expires-after
     value: 5d
   - name: dockerfile
@@ -39,7 +38,7 @@ spec:
     - linux/x86_64
   - name: prefetch-input
     value: |
-      {"type": "rpm", "path": ".konflux/rpms"}
+      [{"type": "rpm", "path": ".konflux/rpms"}, {"type": "yarn"}]
   pipelineRef:
     name: docker-build-ta
   taskRunTemplate:
