@@ -1,0 +1,84 @@
+.osc-yaml-editor {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: row;
+  margin-right: -var(--pf-v5-global--gutter);
+  @media (max-width: var(--pf-v5-global--breakpoint--md)) {
+    margin-left: -var(--pf-v5-global--gutter);
+    margin-top: -var(--pf-v5-global--gutter--md);
+  }
+  @media (min-width: var(--pf-v5-global--breakpoint--xl)) {
+    margin-right: -var(--pf-v5-global--gutter--md);
+  }
+
+  &__editor {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    height: 100%;
+    @media (min-width: var(--pf-v5-global--breakpoint--xl)) {
+      margin-right: var(--pf-v5-global--gutter);
+    }
+    @media (min-width: var(--pf-v5-global--breakpoint--xl)) {
+      margin-right: var(--pf-v5-global--gutter--md);
+    }
+  }
+  &__sidebar {
+    display: flex;
+    width: 34%;
+    margin-top: -var(--pf-v5-global--gutter--md);
+    @media screen and (max-width: var(--pf-v5-global--breakpoint--lg)) {
+      display: none;
+    }
+  }
+}
+
+.odc-p-has-sidebar {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  position: relative;
+
+  &__body {
+    flex: 2;
+    max-width: 100%;
+
+    @media (min-width: 768px) {
+      // $screen-md-min
+      &--sidebar-open {
+        max-width: 66%;
+      }
+    }
+  }
+
+  &__sidebar {
+    position: relative;
+
+    @media (min-width: 768px) {
+      flex: 1 0 auto;
+      overflow-y: auto;
+      max-width: 34%;
+    }
+
+    &--bordered {
+      @media (max-width: 767px) {
+        border-top: var(--pf-v5-global--BorderWidth--sm) solid
+          var(--pf-v5-global--BorderColor--100);
+      }
+
+      @media (min-width: 768px) {
+        border-left: var(--pf-v5-global--BorderWidth--sm) solid
+          var(--pf-v5-global--BorderColor--100);
+      }
+    }
+  }
+
+  &__sidebar-body {
+    position: absolute;
+    width: 100%;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+}
