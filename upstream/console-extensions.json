@@ -1,0 +1,1457 @@
+[
+  {
+    "type": "console.flag/model",
+    "properties": {
+      "model": {
+        "group": "openshift-pipelines.org",
+        "version": "v1alpha1",
+        "kind": "ApprovalTask"
+      },
+      "flag": "OPENSHIFT_PIPELINE_APPROVAL_TASK"
+    }
+  },
+  {
+    "type": "console.flag/model",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "Pipeline"
+      },
+      "flag": "OPENSHIFT_PIPELINE"
+    }
+  },
+  {
+    "type": "console.flag/model",
+    "properties": {
+      "model": {
+        "group": "pipelinesascode.tekton.dev",
+        "version": "v1alpha1",
+        "kind": "Repository"
+      },
+      "flag": "OPENSHIFT_PIPELINE_AS_CODE"
+    }
+  },
+  {
+    "type": "console.yaml-template",
+    "properties": {
+      "name": "default",
+      "model": {
+        "group": "tekton.dev",
+        "kind": "Pipeline",
+        "version": "v1"
+      },
+      "template": { "$codeRef": "yamlTemplates.newPipelineTemplate" }
+    },
+    "flags": {
+      "required": [
+        "HIDE_STATIC_PIPELINE_PLUGIN_CONSOLE_YAML_TEMPLATE_EXTENSION"
+      ]
+    }
+  },
+  {
+    "type": "console.yaml-template",
+    "properties": {
+      "name": "default",
+      "model": {
+        "group": "tekton.dev",
+        "kind": "Task",
+        "version": "v1"
+      },
+      "template": { "$codeRef": "yamlTemplates.newTaskTemplate" }
+    },
+    "flags": {
+      "required": [
+        "HIDE_STATIC_PIPELINE_PLUGIN_CONSOLE_YAML_TEMPLATE_EXTENSION"
+      ]
+    }
+  },
+  {
+    "type": "console.yaml-template",
+    "properties": {
+      "name": "default",
+      "model": {
+        "group": "tekton.dev",
+        "kind": "TaskRun",
+        "version": "v1"
+      },
+      "template": { "$codeRef": "yamlTemplates.newTaskRunTemplate" }
+    },
+    "flags": {
+      "required": [
+        "HIDE_STATIC_PIPELINE_PLUGIN_CONSOLE_YAML_TEMPLATE_EXTENSION"
+      ]
+    }
+  },
+  {
+    "type": "console.yaml-template",
+    "properties": {
+      "name": "default",
+      "model": {
+        "group": "tekton.dev",
+        "kind": "PipelineResource",
+        "version": "v1"
+      },
+      "template": { "$codeRef": "yamlTemplates.newPipelineResourceTemplate" }
+    },
+    "flags": {
+      "required": [
+        "HIDE_STATIC_PIPELINE_PLUGIN_CONSOLE_YAML_TEMPLATE_EXTENSION"
+      ]
+    }
+  },
+  {
+    "type": "console.model-metadata",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "Pipeline"
+      },
+      "color": "#38812f",
+      "label": "%plugin__pipelines-console-plugin~Pipeline%",
+      "labelPlural": "%plugin__pipelines-console-plugin~Pipelines%",
+      "abbr": "PL"
+    }
+  },
+  {
+    "type": "console.model-metadata",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "Pipeline"
+      },
+      "color": "#38812f",
+      "label": "%plugin__pipelines-console-plugin~Pipeline%",
+      "labelPlural": "%plugin__pipelines-console-plugin~Pipelines%",
+      "abbr": "PL"
+    }
+  },
+  {
+    "type": "console.model-metadata",
+    "properties": {
+      "model": {
+        "group": "operator.tekton.dev",
+        "version": "v1alpha1",
+        "kind": "TektonResult"
+      },
+      "color": "#38812f",
+      "label": "%plugin__pipelines-console-plugin~TektonResult%",
+      "labelPlural": "%plugin__pipelines-console-plugin~TektonResults%",
+      "abbr": "TR"
+    }
+  },
+  {
+    "type": "console.model-metadata",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "Pipeline"
+      },
+      "color": "#38812f",
+      "label": "%plugin__pipelines-console-plugin~Pipeline%",
+      "labelPlural": "%plugin__pipelines-console-plugin~Pipelines%",
+      "abbr": "PL"
+    }
+  },
+  {
+    "type": "console.model-metadata",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "Pipeline"
+      },
+      "color": "#38812f",
+      "label": "%plugin__pipelines-console-plugin~Pipeline%",
+      "labelPlural": "%plugin__pipelines-console-plugin~Pipelines%",
+      "abbr": "PL"
+    }
+  },
+  {
+    "type": "console.model-metadata",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "PipelineRun"
+      },
+      "color": "#38812f",
+      "label": "%plugin__pipelines-console-plugin~PipelineRun%",
+      "labelPlural": "%plugin__pipelines-console-plugin~PipelineRuns%",
+      "abbr": "PLR"
+    }
+  },
+  {
+    "type": "console.model-metadata",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "PipelineRun"
+      },
+      "color": "#38812f",
+      "label": "%plugin__pipelines-console-plugin~PipelineRun%",
+      "labelPlural": "%plugin__pipelines-console-plugin~PipelineRuns%",
+      "abbr": "PLR"
+    }
+  },
+  {
+    "type": "console.context-provider",
+    "properties": {
+      "provider": {
+        "$codeRef": "pipelineApprovalContext.PipelineApprovalContextProvider"
+      },
+      "useValueHook": {
+        "$codeRef": "pipelineApprovalContext.usePipelineApprovalToast"
+      }
+    },
+    "flags": {
+      "required": ["OPENSHIFT_PIPELINE_APPROVAL_TASK"]
+    }
+  },
+  {
+    "type": "console.context-provider",
+    "properties": {
+      "provider": { "$codeRef": "toastContext.ToastProvider" },
+      "useValueHook": { "$codeRef": "toastContext.useToast" }
+    }
+  },
+  {
+    "type": "console.page/route",
+    "properties": {
+      "exact": true,
+      "path": [
+        "/pipelines-overview/ns/:ns",
+        "/pipelines-overview/all-namespaces"
+      ],
+      "component": {
+        "$codeRef": "pipelinesComponent.PipelinesOverviewPage"
+      }
+    },
+    "flags": {
+      "required": ["PIPELINE_TEKTON_RESULT_INSTALLED"]
+    }
+  },
+  {
+    "type": "console.page/route",
+    "properties": {
+      "exact": true,
+      "path": [
+        "/pipelines-overview/ns/:ns",
+        "/pipelines-overview/all-namespaces"
+      ],
+      "component": {
+        "$codeRef": "pipelinesComponent.PipelinesOverviewPageK8s"
+      }
+    },
+    "flags": {
+      "required": ["OPENSHIFT_PIPELINE"],
+      "disallowed": ["PIPELINE_TEKTON_RESULT_INSTALLED"]
+    }
+  },
+  {
+    "type": "console.navigation/href",
+    "properties": {
+      "id": "pipelines-overview",
+      "perspective": "admin",
+      "section": "pipelines",
+      "insertBefore": "pipelines",
+      "name": "Overview",
+      "href": "/pipelines-overview",
+      "namespaced": true
+    },
+    "flags": {
+      "required": ["OPENSHIFT_PIPELINE"]
+    }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "Pipeline"
+      },
+      "page": {
+        "name": "%plugin__pipelines-console-plugin~Metrics%",
+        "href": "metrics"
+      },
+      "component": { "$codeRef": "metricsComponent.PipelinesMetricsPage" }
+    },
+    "flags": {
+      "required": ["PIPELINE_TEKTON_RESULT_INSTALLED"]
+    }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "Pipeline"
+      },
+      "page": {
+        "name": "%plugin__pipelines-console-plugin~Metrics%",
+        "href": "metrics"
+      },
+      "component": { "$codeRef": "metricsComponent.PipelinesMetricsPageK8s" }
+    },
+    "flags": {
+      "disallowed": ["PIPELINE_TEKTON_RESULT_INSTALLED"]
+    }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "Pipeline"
+      },
+      "page": {
+        "name": "%plugin__pipelines-console-plugin~Metrics%",
+        "href": "metrics"
+      },
+      "component": { "$codeRef": "metricsComponent.PipelinesMetricsPageK8s" }
+    },
+    "flags": {
+      "disallowed": ["PIPELINE_TEKTON_RESULT_INSTALLED"]
+    }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "Pipeline"
+      },
+      "page": {
+        "name": "%plugin__pipelines-console-plugin~Metrics%",
+        "href": "metrics"
+      },
+      "component": { "$codeRef": "metricsComponent.PipelinesMetricsPage" }
+    },
+    "flags": {
+      "required": ["PIPELINE_TEKTON_RESULT_INSTALLED"]
+    }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": {
+        "group": "pipelinesascode.tekton.dev",
+        "version": "v1alpha1",
+        "kind": "Repository"
+      },
+      "page": {
+        "name": "%plugin__pipelines-console-plugin~Metrics%",
+        "href": "metrics"
+      },
+      "component": { "$codeRef": "metricsComponent.PipelinesMetricsPage" }
+    },
+    "flags": {
+      "required": ["PIPELINE_TEKTON_RESULT_INSTALLED"]
+    }
+  },
+  {
+    "type": "console.page/route",
+    "properties": {
+      "exact": false,
+      "path": ["/tasks/all-namespaces", "/tasks/ns/:ns"],
+      "component": {
+        "$codeRef": "tasksComponent.TasksNavigationPage"
+      }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_TASKS_NAV_OPTION"]
+    }
+  },
+  {
+    "type": "console.navigation/href",
+    "properties": {
+      "id": "pipeline-tasks",
+      "perspective": "admin",
+      "section": "pipelines",
+      "insertAfter": "pipelines",
+      "name": "Tasks",
+      "href": "/tasks",
+      "namespaced": true
+    },
+    "flags": {
+      "required": [
+        "OPENSHIFT_PIPELINE",
+        "HIDE_STATIC_PIPELINE_PLUGIN_TASKS_NAV_OPTION"
+      ]
+    }
+  },
+  {
+    "type": "console.flag/hookProvider",
+    "properties": {
+      "handler": { "$codeRef": "hookProvider.useFlagHookProvider" }
+    }
+  },
+  {
+    "type": "console.flag/hookProvider",
+    "properties": {
+      "handler": { "$codeRef": "hookProvider.useTektonResultInstallProvider" }
+    }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "Pipeline"
+      },
+      "component": { "$codeRef": "pipelinesList.PipelineListPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_PIPELINES_LIST"]
+    }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "Pipeline"
+      },
+      "component": { "$codeRef": "pipelinesList.PipelineListPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_PIPELINES_LIST"]
+    }
+  },
+  {
+    "type": "console.page/route",
+    "properties": {
+      "exact": false,
+      "path": ["/pac/all-namespaces", "/pac/ns/:ns"],
+      "component": {
+        "$codeRef": "pacComponent.PacPage"
+      }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_PAC_FORM"]
+    }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "PipelineRun"
+      },
+      "component": { "$codeRef": "pipelineRunsList.PipelineRunsListPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_PIPELINERUNS_LIST"]
+    }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "PipelineRun"
+      },
+      "component": { "$codeRef": "pipelineRunsList.PipelineRunsListPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_PIPELINERUNS_LIST"]
+    }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": {
+        "group": "pipelinesascode.tekton.dev",
+        "version": "v1alpha1",
+        "kind": "Repository"
+      },
+      "component": { "$codeRef": "repositoriesList.RepositoriesListPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_REPOSITORIES_LIST"]
+    }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": {
+        "group": "openshift-pipelines.org",
+        "version": "v1alpha1",
+        "kind": "ApprovalTask"
+      },
+      "component": { "$codeRef": "approvalsList.ApprovalTasksListPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_APPROVALS_LIST"]
+    }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "Task"
+      },
+      "component": { "$codeRef": "tasksComponent.TasksListPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_TASKS_LIST"]
+    }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "TaskRun"
+      },
+      "component": { "$codeRef": "tasksComponent.TaskRunsListPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_TASKRUNS_LIST"]
+    }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "Task"
+      },
+      "component": { "$codeRef": "tasksComponent.TasksListPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_TASKS_LIST"]
+    }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "TaskRun"
+      },
+      "component": { "$codeRef": "tasksComponent.TaskRunsListPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_TASKRUNS_LIST"]
+    }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "PipelineRun"
+      },
+      "page": {
+        "name": "%plugin__pipelines-console-plugin~TaskRuns%",
+        "href": "task-runs"
+      },
+      "component": { "$codeRef": "tasksComponent.TaskRunsList" }
+    },
+    "flags": {
+      "required": [
+        "HIDE_STATIC_PIPELINE_PLUGIN_PIPELINERUN_DETAIL_TASKRUNS_TAB"
+      ]
+    }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "PipelineRun"
+      },
+      "page": {
+        "name": "%plugin__pipelines-console-plugin~TaskRuns%",
+        "href": "task-runs"
+      },
+      "component": { "$codeRef": "tasksComponent.TaskRunsList" }
+    },
+    "flags": {
+      "required": [
+        "HIDE_STATIC_PIPELINE_PLUGIN_PIPELINERUN_DETAIL_TASKRUNS_TAB"
+      ]
+    }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "PipelineRun"
+      },
+      "page": {
+        "name": "%plugin__pipelines-console-plugin~ApprovalTasks%",
+        "href": "approval-tasks"
+      },
+      "component": { "$codeRef": "approvalsList.ApprovalTasksList" }
+    },
+    "flags": {
+      "required": [
+        "HIDE_STATIC_PIPELINE_PLUGIN_PIPELINERUN_DETAIL_APPROVALS_TAB"
+      ]
+    }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "PipelineRun"
+      },
+      "page": {
+        "name": "%plugin__pipelines-console-plugin~ApprovalTasks%",
+        "href": "approval-tasks"
+      },
+      "component": { "$codeRef": "approvalsList.ApprovalTasksList" }
+    },
+    "flags": {
+      "required": [
+        "HIDE_STATIC_PIPELINE_PLUGIN_PIPELINERUN_DETAIL_APPROVALS_TAB"
+      ]
+    }
+  },
+  {
+    "type": "console.resource/details-item",
+    "properties": {
+      "id": "eventListener-url",
+      "model": {
+        "group": "triggers.tekton.dev",
+        "version": "v1beta1",
+        "kind": "EventListener"
+      },
+      "title": "%plugin__pipelines-console-plugin~URL%",
+      "component": {
+        "$codeRef": "triggersDetails.EventListenerURL"
+      },
+      "sortWeight": 0,
+      "column": "right"
+    }
+  },
+  {
+    "type": "console.resource/details-item",
+    "properties": {
+      "id": "eventListener-triggers",
+      "model": {
+        "group": "triggers.tekton.dev",
+        "version": "v1beta1",
+        "kind": "EventListener"
+      },
+      "title": "%plugin__pipelines-console-plugin~Triggers%",
+      "component": {
+        "$codeRef": "triggersDetails.EventListenerTriggers"
+      },
+      "sortWeight": 1,
+      "column": "right"
+    }
+  },
+  {
+    "type": "console.resource/details-item",
+    "properties": {
+      "id": "triggerTemplate-pipelines",
+      "model": {
+        "group": "triggers.tekton.dev",
+        "version": "v1beta1",
+        "kind": "TriggerTemplate"
+      },
+      "title": "%plugin__pipelines-console-plugin~Pipelines%",
+      "component": {
+        "$codeRef": "triggersDetails.TriggerTemplatePipelines"
+      },
+      "sortWeight": 0,
+      "column": "right"
+    }
+  },
+  {
+    "type": "console.resource/details-item",
+    "properties": {
+      "id": "triggerTemplate-eventListeners",
+      "model": {
+        "group": "triggers.tekton.dev",
+        "version": "v1beta1",
+        "kind": "TriggerTemplate"
+      },
+      "title": "%plugin__pipelines-console-plugin~EventListeners%",
+      "component": {
+        "$codeRef": "triggersDetails.TriggerTemplateEventListeners"
+      },
+      "sortWeight": 1,
+      "column": "right"
+    }
+  },
+  {
+    "type": "console.resource/details-item",
+    "properties": {
+      "id": "triggerBinding-eventListeners",
+      "model": {
+        "group": "triggers.tekton.dev",
+        "version": "v1beta1",
+        "kind": "TriggerBinding"
+      },
+      "title": "%plugin__pipelines-console-plugin~EventListeners%",
+      "component": {
+        "$codeRef": "triggersDetails.TriggerBindingEventListeners"
+      },
+      "sortWeight": 0,
+      "column": "right"
+    }
+  },
+  {
+    "type": "console.resource/details-item",
+    "properties": {
+      "id": "approval-task-description",
+      "model": {
+        "group": "openshift-pipelines.org",
+        "version": "v1alpha1",
+        "kind": "ApprovalTask"
+      },
+      "component": { "$codeRef": "approvalsDetails.TaskDescription" },
+      "sortWeight": 1,
+      "column": "right"
+    }
+  },
+  {
+    "type": "console.resource/details-item",
+    "properties": {
+      "id": "approval-task-approvers",
+      "model": {
+        "group": "openshift-pipelines.org",
+        "version": "v1alpha1",
+        "kind": "ApprovalTask"
+      },
+      "component": { "$codeRef": "approvalsDetails.ApproverList" },
+      "title": "%Approvers%",
+      "sortWeight": 1,
+      "column": "right"
+    }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": {
+        "group": "triggers.tekton.dev",
+        "version": "v1beta1",
+        "kind": "EventListener"
+      },
+      "component": { "$codeRef": "triggersList.EventListenersListPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_EVENTLISTENERS_LIST"]
+    }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": {
+        "group": "triggers.tekton.dev",
+        "version": "v1beta1",
+        "kind": "TriggerBinding"
+      },
+      "component": { "$codeRef": "triggersList.TriggerBindingsListPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_TRIGGERBINDINGS_LIST"]
+    }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": {
+        "group": "triggers.tekton.dev",
+        "version": "v1beta1",
+        "kind": "TriggerTemplate"
+      },
+      "component": { "$codeRef": "triggersList.TriggerTemplatesListPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_TRIGGERTEMPLATES_LIST"]
+    }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": {
+        "group": "triggers.tekton.dev",
+        "version": "v1beta1",
+        "kind": "ClusterTriggerBinding"
+      },
+      "component": { "$codeRef": "triggersList.ClusterTriggerBindingsListPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_CLUSTERTRIGGERSBINDINGS_LIST"]
+    }
+  },
+  {
+    "type": "console.page/route",
+    "properties": {
+      "path": ["/dev-pipelines/ns/:ns", "/dev-pipelines/all-namespaces"],
+      "exact": false,
+      "component": {
+        "$codeRef": "pipelinesList.PipelinesTabbedPage"
+      }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_PIPELINE_NAV_OPTION"]
+    }
+  },
+  {
+    "type": "console.page/route",
+    "properties": {
+      "path": ["/triggers/ns/:ns", "/triggers/all-namespaces"],
+      "exact": false,
+      "component": {
+        "$codeRef": "triggersList.TriggersTabbedPage"
+      }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_TRIGGERS_NAV_OPTION"]
+    }
+  },
+  {
+    "type": "console.page/route",
+    "properties": {
+      "path": ["/pipelines/ns/:ns", "/pipelines/all-namespaces"],
+      "exact": false,
+      "component": {
+        "$codeRef": "pipelinesList.PipelinesTabbedPage"
+      }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_PIPELINE_NAV_OPTION"]
+    }
+  },
+  {
+    "type": "console.navigation/href",
+    "properties": {
+      "id": "pipeline-triggers",
+      "perspective": "admin",
+      "section": "pipelines",
+      "insertAfter": "pipeline-tasks",
+      "name": "Triggers",
+      "href": "/triggers",
+      "namespaced": true
+    },
+    "flags": {
+      "required": [
+        "OPENSHIFT_PIPELINE",
+        "HIDE_STATIC_PIPELINE_PLUGIN_TRIGGERS_NAV_OPTION"
+      ]
+    }
+  },
+  {
+    "type": "console.resource/details-item",
+    "properties": {
+      "id": "tasks-workspaces",
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "Task"
+      },
+      "component": {
+        "$codeRef": "tasksComponent.WorkspaceDefinitionList"
+      },
+      "sortWeight": 1,
+      "column": "right"
+    }
+  },
+  {
+    "type": "console.resource/details-item",
+    "properties": {
+      "id": "tasks-workspaces",
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "Task"
+      },
+      "component": {
+        "$codeRef": "tasksComponent.WorkspaceDefinitionList"
+      },
+      "sortWeight": 1,
+      "column": "right"
+    }
+  },
+  {
+    "type": "console.page/resource/details",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "TaskRun"
+      },
+      "component": { "$codeRef": "tasksComponent.TaskRunsDetailsPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_TASKRUN_DETAILS"]
+    }
+  },
+  {
+    "type": "console.page/resource/details",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "TaskRun"
+      },
+      "component": { "$codeRef": "tasksComponent.TaskRunsDetailsPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_TASKRUN_DETAILS"]
+    }
+  },
+  {
+    "type": "console.navigation/href",
+    "properties": {
+      "id": "pipelines",
+      "perspective": "admin",
+      "section": "pipelines",
+      "name": "Pipelines",
+      "href": "/pipelines",
+      "insertBefore": "pipeline-tasks",
+      "namespaced": true,
+      "dataAttributes": {
+        "data-quickstart-id": "qs-nav-pipelines"
+      }
+    },
+    "flags": {
+      "required": [
+        "OPENSHIFT_PIPELINE",
+        "HIDE_STATIC_PIPELINE_PLUGIN_PIPELINE_NAV_OPTION"
+      ]
+    }
+  },
+  {
+    "type": "console.navigation/href",
+    "properties": {
+      "id": "pipelines",
+      "perspective": "dev",
+      "section": "resources",
+      "insertAfter": "builds",
+      "name": "Pipelines",
+      "href": "/dev-pipelines",
+      "namespaced": true,
+      "dataAttributes": {
+        "data-quickstart-id": "qs-nav-pipelines",
+        "data-test-id": "pipeline-header"
+      }
+    },
+    "flags": {
+      "required": [
+        "OPENSHIFT_PIPELINE",
+        "HIDE_STATIC_PIPELINE_PLUGIN_PIPELINE_NAV_OPTION"
+      ]
+    }
+  },
+  {
+    "type": "console.page/resource/details",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "Pipeline"
+      },
+      "component": { "$codeRef": "pipelinesDetails.PipelineDetailsPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_PIPELINE_DETAILS"]
+    }
+  },
+  {
+    "type": "console.page/resource/details",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "Pipeline"
+      },
+      "component": { "$codeRef": "pipelinesDetails.PipelineDetailsPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_PIPELINE_DETAILS"]
+    }
+  },
+  {
+    "type": "console.resource/details-item",
+    "properties": {
+      "id": "repository-url",
+      "model": {
+        "group": "pipelinesascode.tekton.dev",
+        "version": "v1alpha1",
+        "kind": "Repository"
+      },
+      "title": "%plugin__pipelines-console-plugin~Repository%",
+      "path": "spec.url",
+      "component": {
+        "$codeRef": "repositoryDetails.RepositoryURL"
+      },
+      "sortWeight": 0,
+      "column": "right"
+    }
+  },
+  {
+    "type": "console.resource/details-item",
+    "properties": {
+      "id": "repository-username",
+      "model": {
+        "group": "pipelinesascode.tekton.dev",
+        "version": "v1alpha1",
+        "kind": "Repository"
+      },
+      "title": "%plugin__pipelines-console-plugin~Username%",
+      "path": "spec.git_provider.user",
+      "sortWeight": 1,
+      "column": "right"
+    }
+  },
+  {
+    "type": "console.resource/details-item",
+    "properties": {
+      "id": "repository-access-token",
+      "model": {
+        "group": "pipelinesascode.tekton.dev",
+        "version": "v1alpha1",
+        "kind": "Repository"
+      },
+      "title": "%plugin__pipelines-console-plugin~Git access token%",
+      "path": "spec.git_provider.secret.name",
+      "component": {
+        "$codeRef": "repositoryDetails.RepositoryGitAccessToken"
+      },
+      "sortWeight": 2,
+      "column": "right"
+    }
+  },
+  {
+    "type": "console.resource/details-item",
+    "properties": {
+      "id": "repository-webhook-url",
+      "model": {
+        "group": "pipelinesascode.tekton.dev",
+        "version": "v1alpha1",
+        "kind": "Repository"
+      },
+      "title": "%plugin__pipelines-console-plugin~Webhook URL%",
+      "component": {
+        "$codeRef": "repositoryDetails.RepositoryWebhookURL"
+      },
+      "sortWeight": 3,
+      "column": "right"
+    }
+  },
+  {
+    "type": "console.resource/details-item",
+    "properties": {
+      "id": "repository-webhook-secret",
+      "model": {
+        "group": "pipelinesascode.tekton.dev",
+        "version": "v1alpha1",
+        "kind": "Repository"
+      },
+      "title": "%plugin__pipelines-console-plugin~Webhook secret%",
+      "path": "spec.git_provider.webhook_secret.name",
+      "component": {
+        "$codeRef": "repositoryDetails.RepositoryWebhookSecret"
+      },
+      "sortWeight": 4,
+      "column": "right"
+    }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": {
+        "group": "pipelinesascode.tekton.dev",
+        "version": "v1alpha1",
+        "kind": "Repository"
+      },
+      "page": {
+        "name": "%plugin__pipelines-console-plugin~PipelineRuns%",
+        "href": "Runs"
+      },
+      "component": {
+        "$codeRef": "repositoryDetails.RepositoryPipelineRunsList"
+      }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_REPOSITORY_DETAILS"]
+    }
+  },
+  {
+    "type": "console.page/resource/details",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "PipelineRun"
+      },
+      "component": { "$codeRef": "pipelineRunDetails.PipelineRunDetailsPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_PIPELINERUN_DETAILS"]
+    }
+  },
+  {
+    "type": "console.page/resource/details",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "PipelineRun"
+      },
+      "component": { "$codeRef": "pipelineRunDetails.PipelineRunDetailsPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_PIPELINERUN_DETAILS"]
+    }
+  },
+  {
+    "type": "console.page/resource/details",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "Task"
+      },
+      "component": { "$codeRef": "taskDetails.TaskDetailsPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_TASK_DETAILS"]
+    }
+  },
+  {
+    "type": "console.page/resource/details",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "Task"
+      },
+      "component": { "$codeRef": "taskDetails.TaskDetailsPage" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_TASK_DETAILS"]
+    }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "id": "Output",
+      "name": "Output",
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "PipelineRun"
+      },
+      "page": {
+        "name": "%plugin__pipelines-console-plugin~Output%",
+        "href": "output"
+      },
+      "component": { "$codeRef": "outputsComponent.OutputTab" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_PIPELINERUN_DETAIL_OUTPUT_TAB"]
+    }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "id": "Output",
+      "name": "Output",
+
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "PipelineRun"
+      },
+      "page": {
+        "name": "%plugin__pipelines-console-plugin~Output%",
+        "href": "output"
+      },
+      "component": { "$codeRef": "outputsComponent.OutputTab" }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_PIPELINERUN_DETAIL_OUTPUT_TAB"]
+    }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1",
+        "kind": "Pipeline"
+      },
+      "page": {
+        "name": "%plugin__pipelines-console-plugin~PipelineRuns%",
+        "href": "Runs"
+      },
+      "component": {
+        "$codeRef": "pipelinesDetails.PipelinePipelineRunsList"
+      }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_PIPELINE_DETAILS"]
+    }
+  },
+  {
+    "type": "console.tab/horizontalNav",
+    "properties": {
+      "model": {
+        "group": "tekton.dev",
+        "version": "v1beta1",
+        "kind": "Pipeline"
+      },
+      "page": {
+        "name": "%plugin__pipelines-console-plugin~PipelineRuns%",
+        "href": "Runs"
+      },
+      "component": {
+        "$codeRef": "pipelinesDetails.PipelinePipelineRunsList"
+      }
+    },
+    "flags": {
+      "required": ["HIDE_STATIC_PIPELINE_PLUGIN_PIPELINE_DETAILS"]
+    }
+  },
+  {
+    "type": "console.page/route",
+    "properties": {
+      "exact": true,
+      "path": [
+        "/k8s/ns/:ns/tekton.dev~v1~PipelineRun/:plrName/logs/:taskName",
+        "/k8s/ns/:ns/tekton.dev~v1beta1~PipelineRun/:plrName/logs/:taskName"
+      ],
+      "component": { "$codeRef": "pipelineRunDetails.LogURLRedirect" }
+    }
+  },
+  {
+    "type": "dev-console.add/action",
+    "flags": {
+      "required": [
+        "OPENSHIFT_PIPELINE",
+        "HIDE_STATIC_PIPELINE_PLUGIN_PIPELINE_BUILDER",
+        "HIDE_STATIC_PIPELINE_PLUGIN_DEVCONSOLE_ADD_ACTION_EXTENSION"
+      ]
+    },
+    "properties": {
+      "id": "pipeline",
+      "groupId": "pipelines",
+      "href": "/k8s/ns/:namespace/tekton.dev~v1~Pipeline/~new/builder",
+      "label": "%plugin__pipelines-console-plugin~Pipelines%",
+      "description": "%plugin__pipelines-console-plugin~Create a Tekton Pipeline to automate delivery of your application%",
+      "icon": { "$codeRef": "icons.pipelineIconSVG" },
+      "accessReview": [
+        {
+          "group": "tekton.dev",
+          "resource": "pipelines",
+          "verb": "create"
+        }
+      ]
+    }
+  },
+  {
+    "type": "console.page/route",
+    "properties": {
+      "exact": true,
+      "path": "/k8s/ns/:ns/tekton.dev~v1~Pipeline/~new/builder",
+      "component": {
+        "$codeRef": "pipelineBuilder.PipelineBuilderPage"
+      }
+    },
+    "flags": {
+      "required": [
+        "OPENSHIFT_PIPELINE",
+        "HIDE_STATIC_PIPELINE_PLUGIN_PIPELINE_BUILDER"
+      ]
+    }
+  },
+  {
+    "type": "console.page/route",
+    "properties": {
+      "exact": true,
+      "path": "/k8s/ns/:ns/tekton.dev~v1~Pipeline/:pipelineName/builder",
+      "component": {
+        "$codeRef": "pipelineBuilder.PipelineBuilderEditPage"
+      }
+    },
+    "flags": {
+      "required": [
+        "OPENSHIFT_PIPELINE",
+        "HIDE_STATIC_PIPELINE_PLUGIN_PIPELINE_BUILDER"
+      ]
+    }
+  },
+  {
+    "type": "console.catalog/item-type",
+    "properties": {
+      "type": "Red Hat",
+      "title": "%plugin__pipelines-console-plugin~Red Hat%",
+      "catalogDescription": "%plugin__pipelines-console-plugin~Browse for openshift pipeline tasks available in the cluster.%"
+    },
+    "flags": {
+      "required": [
+        "OPENSHIFT_PIPELINE",
+        "HIDE_STATIC_PIPELINE_PLUGIN_PIPELINE_BUILDER"
+      ]
+    }
+  },
+  {
+    "type": "console.catalog/item-type",
+    "properties": {
+      "type": "Community",
+      "title": "%plugin__pipelines-console-plugin~Community%",
+      "catalogDescription": "%plugin__pipelines-console-plugin~Browse tekton hub tasks.%"
+    },
+    "flags": {
+      "required": [
+        "OPENSHIFT_PIPELINE",
+        "HIDE_STATIC_PIPELINE_PLUGIN_PIPELINE_BUILDER"
+      ]
+    }
+  },
+  {
+    "type": "console.catalog/item-provider",
+    "properties": {
+      "catalogId": "pipelines-task-catalog",
+      "type": "Red Hat",
+      "title": "%plugin__pipelines-console-plugin~Tasks%",
+      "provider": { "$codeRef": "catalog.TektonTaskProvider" }
+    },
+    "flags": {
+      "required": [
+        "OPENSHIFT_PIPELINE",
+        "HIDE_STATIC_PIPELINE_PLUGIN_PIPELINE_BUILDER"
+      ]
+    }
+  },
+  {
+    "type": "console.catalog/item-provider",
+    "properties": {
+      "catalogId": "pipelines-task-catalog",
+      "type": "Community",
+      "title": "%plugin__pipelines-console-plugin~Tasks%",
+      "provider": { "$codeRef": "catalog.TektonHubTaskProvider" }
+    },
+    "flags": {
+      "required": [
+        "OPENSHIFT_PIPELINE",
+        "HIDE_STATIC_PIPELINE_PLUGIN_PIPELINE_BUILDER"
+      ]
+    }
+  },
+  {
+    "type": "console.catalog/item-provider",
+    "properties": {
+      "catalogId": "pipelines-task-catalog",
+      "type": "Community",
+      "title": "%plugin__pipelines-console-plugin~Tasks%",
+      "provider": { "$codeRef": "catalog.ArtifactHubTaskProvider" }
+    },
+    "flags": {
+      "required": [
+        "OPENSHIFT_PIPELINE",
+        "HIDE_STATIC_PIPELINE_PLUGIN_PIPELINE_BUILDER"
+      ]
+    }
+  },
+  {
+    "type": "console.page/route",
+    "properties": {
+      "exact": true,
+      "path": "/k8s/ns/:ns/pipelinesascode.tekton.dev~v1alpha1~Repository/~new/form",
+      "component": {
+        "$codeRef": "repositoriesForm.RepositoryFormPage"
+      }
+    },
+    "flags": {
+      "required": [
+        "OPENSHIFT_PIPELINE",
+        "HIDE_STATIC_PIPELINE_PLUGIN_REPOSITORY_FORM"
+      ]
+    }
+  },
+  {
+    "type": "console.topology/data/factory",
+    "properties": {
+      "id": "pipeline-topology-model-factory",
+      "priority": 800,
+      "resources": {
+        "pipelines": {
+          "model": {
+            "kind": "Pipeline",
+            "group": "tekton.dev",
+            "version": "v1"
+          },
+          "opts": { "isList": true, "optional": true, "namespaced": true }
+        },
+        "pipelineRuns": {
+          "model": {
+            "kind": "PipelineRun",
+            "group": "tekton.dev",
+            "version": "v1"
+          },
+          "opts": { "isList": true, "optional": true, "namespaced": true }
+        }
+      },
+      "getDataModelReconciler": {
+        "$codeRef": "topology.getPipelinesDataModelReconciler"
+      }
+    },
+    "flags": {
+      "required": [
+        "HIDE_STATIC_PIPELINE_PLUGIN_TOPOLOGY_DATA_FACTORY_EXTENSION"
+      ]
+    }
+  },
+  {
+    "type": "console.topology/decorator/provider",
+    "properties": {
+      "id": "pipeline-run-decorator",
+      "priority": 100,
+      "quadrant": "lowerLeft",
+      "decorator": { "$codeRef": "topology.getPipelineRunDecorator" }
+    },
+    "flags": {
+      "required": [
+        "HIDE_STATIC_PIPELINE_PLUGIN_TOPOLOGY_DECORATOR_PROVIDER_EXTENSION"
+      ]
+    }
+  },
+  {
+    "type": "console.topology/details/tab-section",
+    "properties": {
+      "id": "topology-tab-section-pipelines-overview",
+      "tab": "topology-side-bar-tab-resource",
+      "insertBefore": "topology-tab-section-network-overview",
+      "provider": {
+        "$codeRef": "topology.usePipelinesSideBarTabSection"
+      }
+    },
+    "flags": {
+      "required": [
+        "HIDE_STATIC_PIPELINE_PLUGIN_TOPOLOGY_DETAILS_TABSECTION_EXTENSION"
+      ]
+    }
+  }
+]

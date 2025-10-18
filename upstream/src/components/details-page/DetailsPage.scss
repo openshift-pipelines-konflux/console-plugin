@@ -1,0 +1,22 @@
+.app-details {
+  flex-grow: 1;
+
+  &__tabs {
+    display: flex;
+    flex-direction: column;
+
+    &__tabItem {
+      position: relative;
+      &.isFilled.pf-v5-c-tab-content {
+        flex: 1;
+      }
+    }
+  }
+}
+
+.action-menu-dropdown {
+  inset-inline-end: 0;
+  position: absolute;
+  background: var(--pf-v5-global--BackgroundColor--light-100);
+  box-shadow: var(--pf-v5-global--BoxShadow--md);
+}

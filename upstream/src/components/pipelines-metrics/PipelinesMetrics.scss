@@ -1,0 +1,34 @@
+.pipelines-metrix-dropdown {
+  margin-top: var(--pf-v5-global--spacer--md) !important;
+  margin-left: var(--pf-v5-global--spacer--md) !important;
+}
+
+.pipelines-metrics__background {
+  background-color: var(--pf-v5-global--BackgroundColor--200);
+  padding-left: var(--pf-v5-global--spacer--md);
+  padding-right: var(--pf-v5-global--spacer--md);
+  padding-top: var(--pf-v5-global--spacer--md);
+  padding-bottom: var(--pf-v5-global--spacer--md);
+}
+
+.pipelines-metrics__cards {
+  margin-top: var(--pf-v5-global--gutter);
+  margin-bottom: var(--pf-v5-global--gutter);
+}
+
+.pipelines-metrics__cards {
+  .pipeline-overview__number-of-plr-card {
+    &__body {
+      padding: 0;
+      height: 145px;
+      width: 400px;
+    }
+  }
+}
+
+.k8s-overview-info-alert {
+  margin-top: var(--pf-v5-global--spacer--md);
+  margin-left: var(--pf-v5-global--spacer--md);
+  margin-right: var(--pf-v5-global--spacer--md);
+  margin-bottom: 0;
+}
