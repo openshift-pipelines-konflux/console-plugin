@@ -9,7 +9,7 @@ import { formatPrometheusDuration, parsePrometheusDuration } from './dateTime';
 import NameSpaceDropdown from './NamespaceDropdown';
 import TimeRangeDropdown from './TimeRangeDropdown';
 import RefreshDropdown from './RefreshDropdown';
-import { IntervalOptions, TimeRangeOptionsK8s, useQueryParams } from './utils';
+import { IntervalOptions, TimeRangeOptionsK8s } from './utils';
 import PipelineRunsStatusCardK8s from './PipelineRunsStatusCardK8s';
 import PipelineRunsNumbersChartK8s from './PipelineRunsNumbersChartK8s';
 import PipelineRunsTotalCardK8s from './PipelineRunsTotalCardK8s';
@@ -19,36 +19,36 @@ import { K8sDataLimitationAlert } from './K8sDataLimitationAlert';
 import { FLAGS } from '../../types';
 import { ALL_NAMESPACES_KEY } from '../../consts';
 import AllProjectsPage from '../projects-list/AllProjectsPage';
+import {
+  usePersistedTimespanWithUrl,
+  usePersistedIntervalWithUrl,
+} from '../hooks/usePersistedFiltersForPipelineOverview';
 import './PipelinesOverview.scss';
 
 const PipelinesOverviewPageK8s: React.FC = () => {
   const { t } = useTranslation('plugin__pipelines-console-plugin');
   const canListNS = useFlag(FLAGS.CAN_LIST_NS);
   const [activeNamespace, setActiveNamespace] = useActiveNamespace();
-  const [timespan, setTimespan] = React.useState(parsePrometheusDuration('1d'));
-  const [interval, setInterval] = React.useState(
-    parsePrometheusDuration('30s'),
+
+  const [timespan, setTimespan] = usePersistedTimespanWithUrl(
+    parsePrometheusDuration('1d'),
+    {
+      options: TimeRangeOptionsK8s(),
+      displayFormat: formatPrometheusDuration,
+      loadFormat: parsePrometheusDuration,
+    },
+    activeNamespace,
   );
 
-  useQueryParams({
-    key: 'refreshinterval',
-    value: interval,
-    setValue: setInterval,
-    defaultValue: parsePrometheusDuration('30s'),
-    options: { ...IntervalOptions(), off: 'OFF_KEY' },
-    displayFormat: (v) => (v ? formatPrometheusDuration(v) : 'off'),
-    loadFormat: (v) => (v == 'off' ? null : parsePrometheusDuration(v)),
-  });
-
-  useQueryParams({
-    key: 'timerange',
-    value: timespan,
-    setValue: setTimespan,
-    defaultValue: parsePrometheusDuration('1w'),
-    options: TimeRangeOptionsK8s(),
-    displayFormat: formatPrometheusDuration,
-    loadFormat: parsePrometheusDuration,
-  });
+  const [interval, setInterval] = usePersistedIntervalWithUrl(
+    parsePrometheusDuration('30s'),
+    {
+      options: { ...IntervalOptions(), off: 'OFF_KEY' },
+      displayFormat: (v) => (v ? formatPrometheusDuration(v) : 'off'),
+      loadFormat: (v) => (v == 'off' ? null : parsePrometheusDuration(v)),
+    },
+    activeNamespace,
+  );
 
   if (!canListNS && activeNamespace === ALL_NAMESPACES_KEY) {
     return <AllProjectsPage pageTitle={t('Overview')} />;
@@ -56,10 +56,10 @@ const PipelinesOverviewPageK8s: React.FC = () => {
 
   return (
     <>
-      <PageSection variant="light" isFilled className="pf-v5-u-pl-md">
+      <PageSection variant="light" className="pf-v5-u-pl-md">
         <Title headingLevel="h2">{t('Overview')}</Title>
       </PageSection>
-      <div className="k8s-overview-info-alert">
+      <div className="pf-v5-u-m-md">
         <K8sDataLimitationAlert />
       </div>
       <Flex className="project-dropdown-label__flex">
@@ -111,7 +111,6 @@ const PipelinesOverviewPageK8s: React.FC = () => {
             />
           </FlexItem>
           <FlexItem
-            spacer={{ default: 'spacerXs' }}
             grow={{ default: 'grow' }}
             className="pipelines-overview__cards"
           >
@@ -124,12 +123,11 @@ const PipelinesOverviewPageK8s: React.FC = () => {
             />
           </FlexItem>
         </Flex>
-      </div>
-      <div className="pipelines-metrics__background">
         <PipelineRunsListPageK8s
           namespace={activeNamespace}
           timespan={timespan}
           interval={interval}
+          bordered
         />
       </div>
     </>

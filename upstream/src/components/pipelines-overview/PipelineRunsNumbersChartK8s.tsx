@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as _ from 'lodash';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { DomainPropType, DomainTuple } from 'victory-core';
 import {
@@ -12,7 +12,7 @@ import {
   ChartThemeColor,
   ChartVoronoiContainer,
 } from '@patternfly/react-charts';
-import { Card, CardBody, CardTitle } from '@patternfly/react-core';
+import { Alert, Card, CardBody, CardTitle } from '@patternfly/react-core';
 import {
   formatDate,
   getXaxisValues,
@@ -31,6 +31,7 @@ import {
   PipelineQuery,
   adjustToStartOfWeek,
 } from '../pipelines-metrics/utils';
+import { LoadingInline } from '../Loading';
 
 interface PipelinesRunsNumbersChartProps {
   namespace?: string;
@@ -122,8 +123,14 @@ const PipelineRunsNumbersChartK8s: React.FC<PipelinesRunsNumbersChartProps> = ({
     x: domainX || [startDate, endDate],
     y: domainY || undefined,
   };
-
-  const [runSuccessRatioData] =
+  const [pipelineRunsChartError, setPipelineRunsChartError] = React.useState<
+    string | null
+  >(null);
+  const [
+    runSuccessRatioData,
+    runSuccessRatioError,
+    loadingRunSuccessRatioData,
+  ] =
     parentName && namespace
       ? usePipelineMetricsForNamespaceForPipelinePoll({
           namespace,
@@ -133,6 +140,7 @@ const PipelineRunsNumbersChartK8s: React.FC<PipelinesRunsNumbersChartProps> = ({
           name: parentName,
           metricsQuery:
             PipelineQuery.PIPELINERUN_COUNT_FOR_NAMESPACE_FOR_PIPELINE,
+          timeout: 90000,
         })
       : namespace == ALL_NAMESPACES_KEY
       ? usePipelineMetricsForAllNamespacePoll({
@@ -140,6 +148,7 @@ const PipelineRunsNumbersChartK8s: React.FC<PipelinesRunsNumbersChartProps> = ({
           delay: interval,
           queryPrefix: MetricsQueryPrefix.TEKTON_PIPELINES_CONTROLLER,
           metricsQuery: PipelineQuery.PIPELINERUN_COUNT_FOR_ALL_NAMESPACE,
+          timeout: 90000,
         })
       : usePipelineMetricsForNamespacePoll({
           namespace,
@@ -147,8 +156,15 @@ const PipelineRunsNumbersChartK8s: React.FC<PipelinesRunsNumbersChartProps> = ({
           delay: interval,
           queryPrefix: MetricsQueryPrefix.TEKTON_PIPELINES_CONTROLLER,
           metricsQuery: PipelineQuery.PIPELINERUN_COUNT_FOR_NAMESPACE,
+          timeout: 90000,
         });
-  const convertToSummaryData = metricsToSummary(runSuccessRatioData);
+
+  const convertToSummaryData = React.useMemo(() => {
+    if (runSuccessRatioError) {
+      return [];
+    }
+    return metricsToSummary(runSuccessRatioData);
+  }, [runSuccessRatioData, runSuccessRatioError]);
 
   const [tickValues, type] = getXaxisValues(timespan);
 
@@ -220,49 +236,77 @@ const PipelineRunsNumbersChartK8s: React.FC<PipelinesRunsNumbersChartProps> = ({
     };
   }
 
+  React.useEffect(() => {
+    const hasNonAbortError =
+      runSuccessRatioError && runSuccessRatioError.name !== 'AbortError';
+    setPipelineRunsChartError(
+      hasNonAbortError
+        ? runSuccessRatioError?.message ?? t('Unable to load pipeline runs')
+        : null,
+    );
+  }, [runSuccessRatioError]);
+
   return (
     <>
       <Card
-        className={classNames('pipeline-overview__number-of-plr-card', {
+        className={classNames({
+          'pipeline-overview__number-of-plr-card':!pipelineRunsChartError,
           'card-border': bordered,
         })}
       >
         <CardTitle className="pipeline-overview__number-of-plr-card__title">
           <span>{t('Number of PipelineRuns')}</span>
         </CardTitle>
-        <CardBody className="pipeline-overview__number-of-plr-card__body">
-          <div className="pipeline-overview__number-of-plr-card__bar-chart-div">
-            <Chart
-              containerComponent={
-                <ChartVoronoiContainer
-                  labels={({ datum }) => `${datum.y}`}
-                  constrainToVisibleArea
-                />
-              }
-              scale={{ x: 'time', y: 'linear' }}
-              domain={domainValue}
-              domainPadding={{ x: [30, 25] }}
-              height={145}
-              width={width}
-              padding={{
-                top: 10,
-                bottom: 55,
-                left: 50,
-              }}
-              themeColor={ChartThemeColor.blue}
-            >
-              <ChartAxis
-                tickValues={tickValues}
-                style={xAxisStyle}
-                tickFormat={xTickFormat}
-                label={showLabel ? dayLabel : ''}
-              />
-              <ChartAxis dependentAxis style={yAxisStyle} />
-              <ChartGroup>
-                <ChartBar data={chartData} barWidth={18} />
-              </ChartGroup>
-            </Chart>
-          </div>
+         <CardBody 
+          className={classNames({
+            'pipeline-overview__number-of-plr-card__body':!pipelineRunsChartError,
+          })}
+        >
+          {pipelineRunsChartError ? (
+            <Alert
+              variant="danger"
+              isInline
+              title={t('Unable to load pipeline runs')}
+              className="pf-v5-u-mb-md pf-v5-u-mt-lg"
+            />
+          ) : (
+            <div className="pipeline-overview__number-of-plr-card__bar-chart-div">
+              {loadingRunSuccessRatioData ? (
+                <LoadingInline />
+              ) : (
+                <Chart
+                  containerComponent={
+                    <ChartVoronoiContainer
+                      labels={({ datum }) => `${datum.y}`}
+                      constrainToVisibleArea
+                    />
+                  }
+                  scale={{ x: 'time', y: 'linear' }}
+                  domain={domainValue}
+                  domainPadding={{ x: [30, 25] }}
+                  height={145}
+                  width={width}
+                  padding={{
+                    top: 10,
+                    bottom: 55,
+                    left: 50,
+                  }}
+                  themeColor={ChartThemeColor.blue}
+                >
+                  <ChartAxis
+                    tickValues={tickValues}
+                    style={xAxisStyle}
+                    tickFormat={xTickFormat}
+                    label={showLabel ? dayLabel : ''}
+                  />
+                  <ChartAxis dependentAxis style={yAxisStyle} />
+                  <ChartGroup>
+                    <ChartBar data={chartData} barWidth={18} />
+                  </ChartGroup>
+                </Chart>
+              )}
+            </div>
+          )}
         </CardBody>
       </Card>
     </>
