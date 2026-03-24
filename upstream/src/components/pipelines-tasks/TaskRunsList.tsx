@@ -16,10 +16,13 @@ import { useTaskRuns } from '../hooks/useTaskRuns';
 import TaskRunsRow from './TaskRunsRow';
 import { TaskRunModel } from '../../models';
 import { ALL_NAMESPACES_KEY, TektonResourceLabel } from '../../consts';
+import { ComputedStatus, PipelineRunKind } from '../../types';
+import { pipelineRunFilterReducer } from '../utils/pipeline-filter-reducer';
 import { getReferenceForModel } from '../pipelines-overview/utils';
 import { useTaskRunsFilters } from './useTaskRunsFilters';
 import { useLoadMoreOnScroll } from '../utils/tekton-results';
 import { ListPageFilter } from '../list-pages/ListPageFilter';
+import { sortPipelineAndTaskRunsByDuration } from '../pipelines-details/pipeline-step-utils';
 
 interface TaskRunsListPageProps {
   showTitle?: boolean;
@@ -79,7 +82,7 @@ const useTaskColumns = () => {
     },
     {
       id: 'duration',
-      sort: 'status.completionTime',
+      sort: sortPipelineAndTaskRunsByDuration,
       title: t('Duration'),
       transforms: [sortable],
       additional: true,
@@ -116,12 +119,19 @@ const TaskRunsList: React.FC<TaskRunsListPageProps> = ({
   const sortColumnIndex = !namespace ? 6 : 5;
   const parentName = props?.obj?.metadata?.name;
   const parentUid = props?.obj?.metadata?.uid;
+  const pipelineRun = props?.obj as PipelineRunKind;
+  const plrStatus = pipelineRunFilterReducer(pipelineRun);
+  const pipelineRunFinished =
+    plrStatus !== ComputedStatus.Running &&
+    plrStatus !== ComputedStatus.Pending &&
+    plrStatus !== ComputedStatus.Cancelling;
   const [taskRuns, loaded, loadError, nextPageToken] = useTaskRuns(
     ns,
     parentName,
-    undefined,
-    undefined,
-    parentUid,
+    { pipelineRunUid: parentUid, 
+      pipelineRunFinished,
+      pipelineRunManagedBy: pipelineRun?.spec?.managedBy 
+    },
   );
   const [staticData, filteredData, onFilterChange] = useListPageFilter(
     taskRuns,
